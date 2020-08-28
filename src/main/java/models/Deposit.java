@@ -5,25 +5,23 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "deposits")
-public class Deposit {
+public class Deposit implements Model{
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-@OneToOne(mappedBy = "Client")
-@JoinColumn(name = "id")
-    private Client client;
-@OneToOne(mappedBy = "Bank")
-@JoinColumn(name = "id")
-    private Bank bank;
+    @Column(name = "dateOfOpen")
     private String dateOfOpen;
-    private int percent;
-    private int termInMonths;
+    @Column(name = "percent")
+    private String percent;
+    @Column(name = "termInMonths")
+    private String termInMonths;
+    @ManyToOne
+    private Client client;
 
 
-    public Deposit(Long id, Client client, Bank bank, String dateOfOpen, int percent, int termInMonths){
-        this.id = id;
-        this.client = client;
-        this.bank = bank;
+
+
+    public Deposit(String dateOfOpen, String percent, String termInMonths){
         this.dateOfOpen = dateOfOpen;
         this.percent = percent;
         this.termInMonths = termInMonths;
@@ -49,14 +47,6 @@ public class Deposit {
         this.client = client;
     }
 
-    public Bank getBank() {
-        return bank;
-    }
-
-    public void setBank(Bank bank) {
-        this.bank = bank;
-    }
-
     public String getDateOfOpen() {
         return dateOfOpen;
     }
@@ -65,19 +55,20 @@ public class Deposit {
         this.dateOfOpen = dateOfOpen;
     }
 
-    public int getPercent() {
+    public String getPercent() {
         return percent;
     }
 
-    public void setPercent(int percent) {
+    public void setPercent(String percent) {
         percent = percent;
     }
 
-    public int getTermInMonths() {
+    public String getTermInMonths() {
         return termInMonths;
     }
 
-    public void setTermInMonths(int termInMonths) {
+    public void setTermInMonths(String termInMonths) {
         this.termInMonths = termInMonths;
     }
+
 }
